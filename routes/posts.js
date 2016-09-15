@@ -51,6 +51,16 @@ router.get('/:id', function(request, response, next) {
   });
 });
 
+// GET /posts/:id/edit
+// render edit post form
+router.get('/:id/edit', function(request, response) {
+  models.posts.findById(request.params.id).then(function(post) {
+    response.render('edit_post', {
+      post: post
+    });
+  });
+});
+
 // POST /posts/:id
 // edit post
 router.post('/:id/edit', function(request, response) {
@@ -58,7 +68,6 @@ router.post('/:id/edit', function(request, response) {
   .then(function(post){
     post.title = request.body.title;
     post.body = request.body.body;
-    post.modifiedAt = new Date();
     post.save()
       .then(function(){
         response.redirect('../'); // GET /posts
