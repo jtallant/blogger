@@ -11,6 +11,12 @@ module.exports = function(sequelize, DataTypes) {
                         allowNull: false
                     }
                 });
+
+                Post.hasMany(models.comments);
+
+                Post.belongsToMany(models.tags, {
+                    through: 'post_tags',
+                });
             }
         }
     });

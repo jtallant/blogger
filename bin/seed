@@ -15,13 +15,20 @@ models.users.sync({ force: true }).then(function() {
     });
   });
 
-  models.posts.sync({ force: true }).then(function() {
-    fixtures.posts.forEach(function(fixture) {
-      models.posts.create(fixture);
-    });
-
-    models.comments.sync({ force: true }).then(function() {
+  models.post_tags.sync({ force:true }).then(function() {
+    models.tags.sync({ force:true }).then(function() {
       // code
     });
+
+    models.posts.sync({ force: true }).then(function() {
+      fixtures.posts.forEach(function(fixture) {
+        models.posts.create(fixture);
+      });
+
+      models.comments.sync({ force: true }).then(function() {
+        // code
+      });
+    });
   });
+
 });
